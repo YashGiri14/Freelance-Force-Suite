@@ -86,6 +86,11 @@
         <members>Contact.Languages__c</members>
         <members>Contact.Level__c</members>
         <members>Goal.OrigGoalId__c</members>
+        <members>Invoice__c.Due_Date__c</members>
+        <members>Invoice__c.Project__c</members>
+        <members>Invoice__c.Status__c</members>
+        <members>Invoice__c.Total_Amount__c</members>
+        <members>Invoice__c.Total_Hours__c</members>
         <members>Lead.CurrentGenerators__c</members>
         <members>Lead.NumberofLocations__c</members>
         <members>Lead.Primary__c</members>
@@ -100,8 +105,18 @@
         <members>Opportunity.MainCompetitors__c</members>
         <members>Opportunity.OrderNumber__c</members>
         <members>Opportunity.TrackingNumber__c</members>
+        <members>Project__c.Client__c</members>
+        <members>Project__c.End_Date__c</members>
+        <members>Project__c.Hourly_Rate__c</members>
+        <members>Project__c.Start_Date__c</members>
+        <members>Project__c.Status__c</members>
         <members>Student__c.Student_Email__c</members>
         <members>Student__c.Student_Phone__c</members>
+        <members>Time_Log__c.Date__c</members>
+        <members>Time_Log__c.Description__c</members>
+        <members>Time_Log__c.Hours__c</members>
+        <members>Time_Log__c.Project__c</members>
+        <members>Time_Log__c.Status__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -258,6 +273,7 @@
         <members>InventoryReservation</members>
         <members>Invoice</members>
         <members>InvoiceLine</members>
+        <members>Invoice__c</members>
         <members>Lead</members>
         <members>LeadCleanInfo</members>
         <members>LegalEntity</members>
@@ -379,6 +395,7 @@
         <members>TableauHostMapping</members>
         <members>Task</members>
         <members>TimeSlot</members>
+        <members>Time_Log__c</members>
         <members>Topic</members>
         <members>TopicAssignment</members>
         <members>User</members>
@@ -414,9 +431,11 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>Invoice__c-en_US</members>
         <members>Mentor__c-en_US</members>
         <members>Project__c-en_US</members>
         <members>Student__c-en_US</members>
+        <members>Time_Log__c-en_US</members>
         <name>CustomObjectTranslation</name>
     </types>
     <types>
@@ -595,6 +614,7 @@
         <members>Individual-Individual Layout</members>
         <members>Invoice-Invoice Layout</members>
         <members>InvoiceLine-Invoice Line Layout</members>
+        <members>Invoice__c-Invoice Layout</members>
         <members>Lead-Lead %28Marketing%29 Layout</members>
         <members>Lead-Lead %28Sales%29 Layout</members>
         <members>Lead-Lead %28Support%29 Layout</members>
@@ -663,6 +683,7 @@
         <members>Task-Task Layout</members>
         <members>ThreatDetectionFeedback-Threat Detection Feedback Layout</members>
         <members>TimeSlot-Time Slot Layout</members>
+        <members>Time_Log__c-Time Log Layout</members>
         <members>User-User Layout</members>
         <members>UserProvAccount-User Provisioning Account Layout</members>
         <members>UserProvisioningLog-User Provisioning Log Layout</members>
@@ -1351,6 +1372,7 @@
         <members>Individual</members>
         <members>InventoryReservation</members>
         <members>Invoice</members>
+        <members>Invoice__c</members>
         <members>Lead</members>
         <members>LegalEntity</members>
         <members>ListEmail</members>
@@ -1541,6 +1563,7 @@
         <members>Contract</members>
         <members>Event</members>
         <members>Incident</members>
+        <members>Invoice__c</members>
         <members>Lead</members>
         <members>Mentor__c</members>
         <members>Opportunity</members>
@@ -1561,6 +1584,7 @@
         <members>Solution</members>
         <members>Student__c</members>
         <members>Task</members>
+        <members>Time_Log__c</members>
         <members>WorkOrder</members>
         <members>WorkOrderLineItem</members>
         <members>WorkPlan</members>
