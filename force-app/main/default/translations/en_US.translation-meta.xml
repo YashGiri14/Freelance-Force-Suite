@@ -4,6 +4,10 @@
         <label><!-- TCS_LM_SF --></label>
         <name>Yash</name>
     </customApplications>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Invoice_Creation_Automation</fullName>
+    </flowDefinitions>
     <quickActions>
         <label><!-- LogACall --></label>
         <name>LogACall</name>

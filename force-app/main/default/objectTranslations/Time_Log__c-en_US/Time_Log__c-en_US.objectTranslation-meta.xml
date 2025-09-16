@@ -9,4 +9,8 @@
         <value>Time Logs</value>
     </caseValues>
     <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- The date cannot be in the future. --></errorMessage>
+        <name>Date_Cannot_Be_In_Future</name>
+    </validationRules>
 </CustomObjectTranslation>
