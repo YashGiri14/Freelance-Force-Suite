@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>TimeLogTriggerHandler</members>
-        <members>MarkInvoicesOverdueSchedulable</members>
-        <members>TimeLogTriggerHandlerTest</members>
-        <members>MarkInvoicesOverdueSchedulableTest</members>
+        <members>TimeLogController</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>TimeLogTrigger</members>
-        <name>ApexTrigger</name>
+        <members>timeLogger</members>
+        <name>LightningComponentBundle</name>
     </types>
     <version>59.0</version>
 </Package>
