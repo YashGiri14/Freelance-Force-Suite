@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>CurrencyConverterService</members>
-        <members>CurrencyConverterServiceTest</members>
-        <name>ApexClass</name>
-    </types>
-    <types>
-        <members>Project__c.USD_to_INR_Exchange_Rate__c</members>
-        <name>CustomField</name>
-    </types>
-    <types>
-        <members>CurrencyAPI</members>
-        <name>RemoteSiteSetting</name>
+        <members>*</members>
+        <name>DuplicateRule</name>
     </types>
     <version>60.0</version>
 </Package>
