@@ -2,45 +2,9 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <assignments>
-        <name>Add_Hours_to_Total</name>
-        <label>Add Hours to Total</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>varTotalHours</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>Loop_Through_Each_Time_Log.Hours__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Loop_Through_Each_Time_Log</targetReference>
-        </connector>
-    </assignments>
     <environments>Default</environments>
-    <formulas>
-        <name>formula_TotalAmount</name>
-        <dataType>Currency</dataType>
-        <expression>{!varTotalHours} * {!$Record.Project__c.Hourly_Rate__c}</expression>
-        <scale>2</scale>
-    </formulas>
     <interviewLabel>Invoice Creation Automation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Invoice Creation Automation</label>
-    <loops>
-        <name>Loop_Through_Each_Time_Log</name>
-        <label>Loop Through Each Time Log</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <collectionReference>Get_Unbilled_Time_Logs</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Update_Time_Log_to_Billed</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>Update_Invoice_Totals</targetReference>
-        </noMoreValuesConnector>
-    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -67,16 +31,9 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Loop_Through_Each_Time_Log</targetReference>
+            <targetReference>Update_Time_Logs_to_Billed</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
-        <filters>
-            <field>Project__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>$Record &gt; Project</stringValue>
-            </value>
-        </filters>
         <filters>
             <field>Status__c</field>
             <operator>EqualTo</operator>
@@ -84,52 +41,29 @@
                 <stringValue>Unbilled</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Project__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>$Record &gt; Project__c</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>Time_Log__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>Update_Invoice_Totals</name>
-        <label>Update Invoice Totals</label>
+        <name>Update_Time_Logs_to_Billed</name>
+        <label>Update Time Logs to Billed</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <inputAssignments>
-            <field>CorpCrcyCnvTotAmtWithTax</field>
+            <field>Name</field>
             <value>
-                <elementReference>formula_TotalAmount</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Total_Hours__c</field>
-            <value>
-                <elementReference>varTotalHours</elementReference>
+                <elementReference>$Record.OwnerId</elementReference>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_Time_Log_to_Billed</name>
-        <label>Update Time Log to Billed</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <connector>
-            <targetReference>Add_Hours_to_Total</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Loop_Through_Each_Time_Log.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Billed</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Time_Log__c</object>
     </recordUpdates>
     <start>
         <locationX>0</locationX>
@@ -137,20 +71,9 @@
         <connector>
             <targetReference>Get_Unbilled_Time_Logs</targetReference>
         </connector>
-        <object>Invoice</object>
+        <object>Invoice__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
-    <variables>
-        <name>varTotalHours</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>2</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
+    <status>Draft</status>
 </Flow>

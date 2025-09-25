@@ -1,10 +1,26 @@
 <template>
-    <lightning-card title="Quick Time Logger" icon-name="standard:timesheet">
+    <lightning-card title="Log Billable Time" icon-name="standard:timesheet">
         <div class="slds-p-around_medium">
-            <lightning-input type="date" label="Date" value={logDate} onchange={handleDateChange} required></lightning-input>
-            <lightning-input type="number" label="Hours" step="0.25" value={hours} onchange={handleHoursChange} required></lightning-input>
-            <lightning-textarea label="Description" value={description} onchange={handleDescriptionChange}></lightning-textarea>
-            <lightning-button label="Log Time" variant="brand" onclick={handleLogTime} class="slds-m-top_medium"></lightning-button>
+            <lightning-input 
+                label="Hours" 
+                type="number" 
+                step="0.5" 
+                class="slds-m-bottom_small" 
+                onchange={handleHoursChange}>
+            </lightning-input>
+
+            <lightning-textarea 
+                label="Description of Work" 
+                onchange={handleDescriptionChange}>
+            </lightning-textarea>
+
+            <lightning-button 
+                variant="brand" 
+                label="Log Time" 
+                title="Log Time" 
+                class="slds-m-top_medium" 
+                onclick={handleLogTime}>
+            </lightning-button>
         </div>
     </lightning-card>
 </template>

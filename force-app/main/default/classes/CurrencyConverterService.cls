@@ -1,34 +1,25 @@
+// Service class to perform HTTP callouts to an external currency API
 public class CurrencyConverterService {
-    // Using @future(callout=true) allows this method to make web service calls
-    // It runs asynchronously in the background.
-    @future(callout=true)
-    public static void getUSDtoINRRate(Id projectId) {
-        // Prepare the HTTP request
+
+    // Method to get the latest currency exchange rates
+    public static void getExchangeRates() {
+        // 1. Prepare the HTTP Request
         HttpRequest request = new HttpRequest();
-        // This is the endpoint for the free currency API to get the latest USD rates
-        request.setEndpoint('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json');
+        request.setEndpoint('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
         request.setMethod('GET');
 
+        // 2. Send the Request and get the Response
         try {
-            // Send the request
             Http http = new Http();
             HttpResponse response = http.send(request);
 
-            // Check if the call was successful (status code 200)
+            // 3. Process the Response
             if (response.getStatusCode() == 200) {
-                // Parse the JSON response to get the data
-                Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-                Map<String, Object> usdRates = (Map<String, Object>) results.get('usd');
-                Decimal inrRate = (Decimal) usdRates.get('inr');
-
-                // Find the project record and update it with the exchange rate
-                Project__c projectToUpdate = [SELECT Id FROM Project__c WHERE Id = :projectId];
-                projectToUpdate.USD_to_INR_Exchange_Rate__c = inrRate;
-                update projectToUpdate;
+                System.debug('Response body: ' + response.getBody());
+                // Logic to parse the JSON response would go here
             }
-        } catch (Exception e) {
-            // In a real project, you would log this error more formally
-            System.debug('Callout failed: ' + e.getMessage());
+        } catch (System.CalloutException e) {
+            System.debug('Callout error: ' + e.getMessage());
         }
     }
 }

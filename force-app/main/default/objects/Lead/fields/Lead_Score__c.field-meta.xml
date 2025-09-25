@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Score__c</fullName>
+    <description>Calculates a lead score based on status, contact preferences, and lead source.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    ISPICKVAL(Status, &quot;Closed - Not Converted&quot;),
+    0,
+    IF(DoNotCall, -25, 0) +
+    IF(NOT(ISBLANK(Email)), 15, 0) +
+    CASE(
+        LeadSource,
+        &quot;Web&quot;, 20,
+        &quot;Phone Inquiry&quot;, 35,
+        &quot;Partner Referral&quot;, 25,
+        &quot;Purchased List&quot;, 10,
+        0
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>A score indicating lead quality. Higher scores represent higher quality leads. Score is 0 if status is Closed - Not Converted.</inlineHelpText>
+    <label>Lead Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

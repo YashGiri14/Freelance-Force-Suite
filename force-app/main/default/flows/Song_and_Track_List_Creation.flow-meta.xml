@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <choices>
+        <name>CreateSong</name>
+        <choiceText>Create Song</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>CreateTrackList</name>
+        <choiceText>Create Track List</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <decisions>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to decide the path the Flow will take.</description>
+        <name>Creation_Decision</name>
+        <label>Creation Decision</label>
+        <locationX>314</locationX>
+        <locationY>242</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Song_Creation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CreateSong</leftValueReference>
+                <operator>WasSelected</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_Song</targetReference>
+            </connector>
+            <label>Song Creation?</label>
+        </rules>
+        <rules>
+            <name>Track_List_Creation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CreateTrackList</leftValueReference>
+                <operator>WasSelected</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_A_Track_List</targetReference>
+            </connector>
+            <label>Track List Creation?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to decide the path the Flow will take.</description>
+        <name>Track_List_Decision</name>
+        <label>Track List Decision</label>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
+        <defaultConnector>
+            <targetReference>Song_Created</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Track List = No</defaultConnectorLabel>
+        <rules>
+            <name>Track_List_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Add_to_Track_List</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_A_Track_List</targetReference>
+            </connector>
+            <label>Track List = Yes</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Song and Track List Creation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Song and Track List Creation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to create a new Song record</description>
+        <name>Create_Song_Record</name>
+        <label>Create Song Record</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <connector>
+            <targetReference>Track_List_Decision</targetReference>
+        </connector>
+        <inputReference>Song</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to create a new Track List record.</description>
+        <name>Create_Track_List_Record</name>
+        <label>Create Track List Record</label>
+        <locationX>314</locationX>
+        <locationY>1166</locationY>
+        <connector>
+            <targetReference>Track_List_Created</targetReference>
+        </connector>
+        <inputReference>Song</inputReference>
+    </recordCreates>
+    <screens>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to gather fields for a new Track List record.</description>
+        <name>Create_A_Track_List</name>
+        <label>Create A Track List</label>
+        <locationX>314</locationX>
+        <locationY>1058</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Track_List_Record</targetReference>
+        </connector>
+        <fields>
+            <name>Track_List_Fields</name>
+            <fieldText>&lt;p&gt;We want to display the Track List fields here for input&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to gather the fields for a new Song record</description>
+        <name>New_Song</name>
+        <label>New Song</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Song_Record</targetReference>
+        </connector>
+        <fields>
+            <fieldType>ObjectProvided</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <objectFieldReference>Song.Name</objectFieldReference>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <fieldType>ObjectProvided</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <objectFieldReference>Song.Writer_Composer__c</objectFieldReference>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <fieldType>ObjectProvided</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <objectFieldReference>Song.Duration__c</objectFieldReference>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Add_to_Track_List</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Add to Track List</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to select what type of record will be created.</description>
+        <name>Record_Selection</name>
+        <label>Record Selection</label>
+        <locationX>314</locationX>
+        <locationY>134</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Creation_Decision</targetReference>
+        </connector>
+        <fields>
+            <name>CreationChoice</name>
+            <choiceReferences>CreateSong</choiceReferences>
+            <choiceReferences>CreateTrackList</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>What would you like to create?</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to show the user that the Flow has run successfully.</description>
+        <name>Song_Created</name>
+        <label>Song Created</label>
+        <locationX>138</locationX>
+        <locationY>674</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>SongCompletionScreen</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;The Song has been created.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>This Flow was created to help a user create a Song or Track List record. This Element is used to show the user that the Flow has run successfully.</description>
+        <name>Track_List_Created</name>
+        <label>Track List Created</label>
+        <locationX>314</locationX>
+        <locationY>1274</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>CompletionScreen</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;The Track List has been created&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Record_Selection</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>Song</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Song__c</objectType>
+    </variables>
+</Flow>

@@ -3,5 +3,6 @@
     <fullName>Date_Cannot_Be_In_Future</fullName>
     <active>true</active>
     <errorConditionFormula>Date__c &gt; TODAY()</errorConditionFormula>
-    <errorMessage>The date cannot be in the future.</errorMessage>
+    <errorDisplayField>Date__c</errorDisplayField>
+    <errorMessage>You cannot log time for a future date. Please select today&apos;s date or a past date.</errorMessage>
 </ValidationRule>

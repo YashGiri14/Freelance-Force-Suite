@@ -14,7 +14,7 @@
     <filters>
         <field>Status</field>
         <operation>notEqual</operation>
-        <value>Closed,Resolved,Known Error,Risk Accepted</value>
+        <value>Closed,Resolved</value>
     </filters>
     <label>All Open Problems</label>
 </ListView>
